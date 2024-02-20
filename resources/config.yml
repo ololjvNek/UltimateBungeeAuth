@@ -1,0 +1,35 @@
+database:
+  host: "0.0.0.0"
+  port: 3306
+  user: "root"
+  password: "passwd123"
+  name: "minecraft"
+settings:
+  authServer: 'auth'
+  broughtServerName: 'main'
+  titlesCommand: 'joinTitles' #Aliases for command to enable/disable titles on join
+messages:
+  login: "&8>> &7Please login using command &c/login <password>"
+  loginsuccess: "&8>> &7You have been logged in!"
+  wrongpassword: "&8>> &cWrong password!"
+  loggedin: "&8>> &7You are logged in!"
+  notregistered: "&8>> &7You can't login because you doesn't registered yet!"
+  registersuccess: "&8>> &7You have been registered successfully!"
+  register: "&8>> &7Please register using command &c/register <password> <password>"
+  passwordsincorrect: "&8>> &7Passwords doesn't match!"
+  registered: "&8>> &7You are registered!"
+  playerinserver: "&8>> That nickname is actually on the server!"
+  wrongnick: "&8>> Your correct nickname is: {CORRECT_NICK}"
+  prioritybrought: "&7You've been brought by &9priority"
+  inqueue: "&7You're in &9queue&7: &a{QUEUE}"
+  titlesOn: "&7You've turned titles to &aON"
+  titlesOff: "&7You've turned titles to &cOFF"
+titles:
+  settings:
+    fadeIn: 1 #in seconds
+    stayIn: 3 #in seconds
+    fadeOut: 1 #in seconds
+  loginPrefix: "&2&lLOGIN"
+  premiumLogin: "&7Logged in from &aPremium &7account!"
+  nonpremiumLogin: "&7Logged in from &cNonPremium &7account!"
+  lastSession: "&7Logged in from &alast session!"
