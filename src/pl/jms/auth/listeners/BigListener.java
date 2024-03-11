@@ -26,14 +26,8 @@ public class BigListener implements Listener{
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void PreLogin(PreLoginEvent e){
-		ProxiedPlayer p = ProxyServer.getInstance().getPlayer(e.getConnection().getName());
+		ProxiedPlayer p = ProxyServer.getInstance().getPlayer(e.getConnection().getUniqueId());
 		if(p != null){
-			e.setCancelled(true);
-			e.setCancelReason(Util.fixColors(Main.configuration.getString("messages.playerinserver")));
-			return;
-		}
-		ProxiedPlayer p2 = BungeeCord.getInstance().getPlayer(e.getConnection().getName());
-		if(p2 != null){
 			e.setCancelled(true);
 			e.setCancelReason(Util.fixColors(Main.configuration.getString("messages.playerinserver")));
 			return;
@@ -45,9 +39,10 @@ public class BigListener implements Listener{
 				return;
 			}
 		}
-		User u = UserManager.getUser(e.getConnection().getName());
-		if (u == null) { 
+		User u = UserManager.getUser(e.getConnection().getUniqueId());
+		if (u == null && e.getConnection() != null && e.getConnection().getUniqueId() != null) {
 			UserManager.createUser(e.getConnection().getName());
+			u = UserManager.getUser(e.getConnection().getUniqueId());
 			if(Util.hasPaid(e.getConnection().getName()) == true){
 				UserManager.getUser(e.getConnection().getName()).setPremium(true);
 				e.getConnection().setOnlineMode(true);

@@ -2,13 +2,16 @@ package pl.jms.auth.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.PendingConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import pl.jms.auth.Main;
 
 public class User {
-	
+
+	private UUID UUID;
 	private String name;
 	private String password;
 	private boolean premium, registered, logged, titlesEnabled;
@@ -16,6 +19,7 @@ public class User {
 	private PendingConnection connection;
 	
 	public User(ProxiedPlayer p){
+		this.UUID = p.getUniqueId();
 		this.name = p.getName();
 		this.password = null;
 		this.premium = false;
@@ -23,10 +27,12 @@ public class User {
 		this.logged = false;
 		this.connection = null;
 		this.lastip = null;
+		this.titlesEnabled = true;
 		insert();
 	}
 	
 	public User(String p){
+		this.UUID = ProxyServer.getInstance().getPlayer(p).getUniqueId();
 		this.name = p;
 		this.password = null;
 		this.premium = false;
@@ -34,21 +40,26 @@ public class User {
 		this.logged = false;
 		this.connection = null;
 		this.lastip = null;
+		this.titlesEnabled = true;
 		insert();
 	}
 	
 	public User(ResultSet rs) throws SQLException{
+		this.UUID = java.util.UUID.fromString(rs.getString("uuid"));
 		this.name = rs.getString("name");
 		this.password = rs.getString("password");
 		this.premium = rs.getBoolean("premium");
 		this.registered = rs.getBoolean("registered");
 		this.logged = false;
 		this.lastip = null;
+		this.titlesEnabled = true;
 	}
 	
 	public String getName(){
 		return this.name;
 	}
+
+	public UUID getUUID() { return this.UUID; }
 	
 	public String getPassword(){
 		return this.password;
@@ -123,7 +134,7 @@ public class User {
 		int pre = this.premium ? 1 : 0;
 		int reg = this.registered ? 1 : 0;
 		int tE = this.titlesEnabled ? 1 : 0;
-		Main.store.update(true, "INSERT INTO `authusers`(`id`, `name`, `password`, `premium`, `registered`, `titlesEnabled`) VALUES (NULL, '" + this.name + "', '" + this.password + "', '" + pre + "', '" + reg + "', '" + tE + "');");
+		Main.store.update(true, "INSERT INTO `authusers`(`id`, `uuid`, `name`, `password`, `premium`, `registered`, `titlesEnabled`) VALUES (NULL, '" + this.UUID.toString() + "', '" + this.name + "', '" + this.password + "', '" + pre + "', '" + reg + "', '" + tE + "');");
 	}
 
 }

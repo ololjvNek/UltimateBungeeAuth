@@ -33,3 +33,10 @@ titles:
   premiumLogin: "&7Logged in from &aPremium &7account!"
   nonpremiumLogin: "&7Logged in from &cNonPremium &7account!"
   lastSession: "&7Logged in from &alast session!"
+webhooks:
+  newPlayer:
+    webhook: ''
+    format: "New player {PLAYER} has been joined for the first time on the server {TIME}"
+  loginPlayer:
+    webhook: ''
+    format: "Player {PLAYER} logged in to server {DATE} since first join {TIME}"

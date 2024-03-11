@@ -1,10 +1,13 @@
 package pl.jms.auth.utils;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,16 +79,47 @@ public class Util implements Prefix {
         }
     }
 
-    public static boolean checkVersion(){
+    public static void sendPluginUsing(String serverIP, boolean isOnline){
+        try {
+
+            URL url = new URL("http://185.117.3.209:3000/save_bungeeauth");
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            String bungeeauth = "add";
+
+
+            String postData = "{\"bungeeauth\":\"" + bungeeauth + "\",\"server_ip\":\"" + serverIP + "\",\"online\":" + (isOnline ? "true" : "false") + "}";
+            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+
+            try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+                wr.write(postDataBytes);
+            }
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                System.out.println("Dane zostały pomyślnie wysłane do serwera.");
+            } else {
+                System.out.println("Wystąpił błąd podczas wysyłania danych. Kod odpowiedzi: " + responseCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getNewestVersion(){
 
         try {
-            final URL url = new URL("");
+            final URL url = new URL("https://raw.githubusercontent.com/ololjvNek/UltimateBungeeAuth/master/version.txt");
             final BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
             final String line = in.readLine();
-            return line.startsWith("true");
+            return line;
         }
         catch (IOException ignored) {}
-        return false;
+        return "error";
 
     }
     

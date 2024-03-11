@@ -19,6 +19,7 @@ public class TitlesCommand extends Command {
         final User u = UserManager.getUser(player);
         assert u != null;
         u.setTitlesEnabled(!u.isTitlesEnabled());
+        u.update();
         Util.sendMessage(player, (u.isTitlesEnabled() ? Main.configuration.getString("messages.titlesOn") : Main.configuration.getString("messages.titlesOff")));
     }
 }

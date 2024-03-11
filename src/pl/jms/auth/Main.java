@@ -63,7 +63,7 @@ public class Main extends Plugin{
 		store = new StoreMySQL(configuration.getString("database.host"), configuration.getInt("database.port"), configuration.getString("database.user"), configuration.getString("database.password"), configuration.getString("database.name"), "");
 		boolean conn = store.connect();
 		if(conn){
-			store.update(true, "CREATE TABLE IF NOT EXISTS `authusers` (`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `name` varchar(32) NOT NULL, `password` varchar(32) NOT NULL, `premium` tinyint(1) NOT NULL, `registered` tinyint(1) NOT NULL, `titlesEnabled` tinyint(1) NOT NULL);");
+			store.update(true, "CREATE TABLE IF NOT EXISTS `authusers` (`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `uuid` text NOT NULL, `name` varchar(32) NOT NULL, `password` varchar(32) NOT NULL, `premium` tinyint(1) NOT NULL, `registered` tinyint(1) NOT NULL, `titlesEnabled` tinyint(1) NOT NULL);");
 		}
 		UserManager.loadUsers();
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new UltimateBungeeAuthCommand());
@@ -78,7 +78,13 @@ public class Main extends Plugin{
         BungeeCord.getInstance().registerChannel("Return");
 		getLogger().info("UltimateBungeeAuth Loaded!");
 
+		//Util.sendPluginUsing(BungeeCord.serverAddress, true);
 
+		if(!Util.getNewestVersion().equals("error") && Util.getNewestVersion().equals("1.1.2")){
+			getLogger().info("[UltimateBungeeAuth] You are using the newest version of UltimateBungeeAuth!");
+		}else{
+			getLogger().info("[UltimateBungeeAuth] New version is out! Please update plugin for compatibility and bug fixes\nhttps://www.spigotmc.org/resources/ultimatebungeeauth-auth-plugin-for-bungeecord-auto-premium-login-mysql-queue-system.115021/");
+		}
 
 		final ServerInfo serverInfoMain = ProxyServer.getInstance().getServerInfo(configuration.getString("settings.broughtServerName"));
 
