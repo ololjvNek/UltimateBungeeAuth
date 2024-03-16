@@ -80,7 +80,7 @@ public class Main extends Plugin{
 
 		//Util.sendPluginUsing(BungeeCord.serverAddress, true);
 
-		if(!Util.getNewestVersion().equals("error") && Util.getNewestVersion().equals("1.1.2")){
+		if(!Util.getNewestVersion().equals("error") && Util.getNewestVersion().equals("1.2.0")){
 			getLogger().info("[UltimateBungeeAuth] You are using the newest version of UltimateBungeeAuth!");
 		}else{
 			getLogger().info("[UltimateBungeeAuth] New version is out! Please update plugin for compatibility and bug fixes\nhttps://www.spigotmc.org/resources/ultimatebungeeauth-auth-plugin-for-bungeecord-auto-premium-login-mysql-queue-system.115021/");

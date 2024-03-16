@@ -14,11 +14,13 @@ public class UserManager {
 	
 	public static ConcurrentHashMap<UUID, User> users = new ConcurrentHashMap<>();
 	
-	public static void createUser(ProxiedPlayer p){
+	public static User createUser(ProxiedPlayer p){
 		if(getUser(p) == null){
 			User mu = new User(p);
 			users.put(p.getUniqueId(), mu);
+			return mu;
 		}
+		return getUser(p);
 	}
 	
 	public static void createUser(String p){

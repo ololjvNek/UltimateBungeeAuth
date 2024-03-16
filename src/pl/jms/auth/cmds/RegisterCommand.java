@@ -10,6 +10,8 @@ import pl.jms.auth.managers.UserManager;
 import pl.jms.auth.utils.User;
 import pl.jms.auth.utils.Util;
 
+import java.util.List;
+
 public class RegisterCommand extends Command{
 
 	public RegisterCommand() {
@@ -22,6 +24,29 @@ public class RegisterCommand extends Command{
 		User u = UserManager.getUser(p);
 		if(!u.isRegistered()){
 			if(args.length == 2){
+
+				if(args[0].length() < Main.configuration.getInt("settings.passwordMinLength")){
+					Util.sendMessage(p, Main.configuration.getString("messages.passwordlength"));
+					return;
+				}
+
+				final List<Integer> numbersInString = Util.getNumbersInText(args[0]);
+
+				boolean isDuplicate = false;
+
+				int lastNumber = -1;
+				for(final int i : numbersInString){
+					if(lastNumber != -1 && lastNumber == i){
+						isDuplicate = true;
+					}
+					lastNumber = i;
+				}
+
+				if(isDuplicate || numbersInString.size() < Main.configuration.getInt("settings.passwordMinNumbers")){
+					Util.sendMessage(p, Main.configuration.getString("messages.passwordnumbers"));
+					return;
+				}
+
 				if(args[0].equals(args[1])){
 					Util.sendMessage(p, Main.configuration.getString("messages.registersuccess"));
 					u.setRegistered(true);

@@ -8,6 +8,9 @@ settings:
   authServer: 'auth'
   broughtServerName: 'main'
   titlesCommand: 'joinTitles' #Aliases for command to enable/disable titles on join
+  passwordMinLength: 4
+  passwordMinNumbers: 3
+  passwordMinSpecialCharacters: 0
 messages:
   login: "&8>> &7Please login using command &c/login <password>"
   loginsuccess: "&8>> &7You have been logged in!"
@@ -24,6 +27,9 @@ messages:
   inqueue: "&7You're in &9queue&7: &a{QUEUE}"
   titlesOn: "&7You've turned titles to &aON"
   titlesOff: "&7You've turned titles to &cOFF"
+  passwordlength: "&7Your password must have min 4 letters"
+  passwordnumbers: "&7Your password doesn't have 3 unique numbers"
+  passwordspecial: "&7Your password must have 1 special character"
 titles:
   settings:
     fadeIn: 1 #in seconds

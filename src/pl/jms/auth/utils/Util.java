@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -148,7 +150,17 @@ public class Util implements Prefix {
         t.subTitle(new TextComponent(Util.fixColors(Main.configuration.getString("titles.nonpremiumLogin"))));
         t.send(p);
     }
-    
+
+    public static List<Integer> getNumbersInText(String text){
+        char[] chars = text.toCharArray();
+        final List<Integer> list = new ArrayList<>();
+        for(char c : chars){
+            if(Character.isDigit(c)){
+                list.add(Integer.parseInt(Character.toString(c)));
+            }
+        }
+        return list;
+    }
     public static void sendTitleSession(ProxiedPlayer p){
     	Title t = ProxyServer.getInstance().createTitle();
     	t.fadeIn(40);

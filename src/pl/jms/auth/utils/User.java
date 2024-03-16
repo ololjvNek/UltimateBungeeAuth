@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.Connection;
 import net.md_5.bungee.api.connection.PendingConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import pl.jms.auth.Main;
@@ -15,8 +16,8 @@ public class User {
 	private String name;
 	private String password;
 	private boolean premium, registered, logged, titlesEnabled;
-	private String lastip;
 	private PendingConnection connection;
+	private String lastip;
 	
 	public User(ProxiedPlayer p){
 		this.UUID = p.getUniqueId();
@@ -25,9 +26,9 @@ public class User {
 		this.premium = false;
 		this.registered = false;
 		this.logged = false;
-		this.connection = null;
 		this.lastip = null;
 		this.titlesEnabled = true;
+		this.connection = p.getPendingConnection();
 		insert();
 	}
 	
@@ -38,9 +39,9 @@ public class User {
 		this.premium = false;
 		this.registered = false;
 		this.logged = false;
-		this.connection = null;
 		this.lastip = null;
 		this.titlesEnabled = true;
+		this.connection = null;
 		insert();
 	}
 	
@@ -53,6 +54,7 @@ public class User {
 		this.logged = false;
 		this.lastip = null;
 		this.titlesEnabled = true;
+		this.connection = null;
 	}
 	
 	public String getName(){
@@ -67,10 +69,6 @@ public class User {
 
 	public void setName(String s){
 		this.name = s;
-	}
-	
-	public void setConnection(PendingConnection con){
-		this.connection = con;
 	}
 
 	public String getLastIP() {return this.lastip;}
@@ -87,7 +85,11 @@ public class User {
 		this.lastip = ip;
 	}
 
-	public PendingConnection getConnection(){
+	public void setPlayerConnection(final PendingConnection playerConnection){
+		this.connection = playerConnection;
+	}
+
+	public PendingConnection getPlayerConnection(){
 		return this.connection;
 	}
 	
