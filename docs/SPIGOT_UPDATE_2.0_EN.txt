@@ -1,0 +1,77 @@
+================================================================================
+SPIGOT "UPDATE TITLE" FIELD — copy this one line:
+================================================================================
+
+2.0.0 — Velocity support, BCrypt, multi lobby/auth servers, security overhaul
+
+================================================================================
+MESSAGE BODY — OPTION A: BBCode (recommended)
+On Spigot: click the wrench / "BBCode" toggle, paste everything below the line
+from line 14 through line 46 (the BBCode block only), then switch back to visual
+if you want to tweak.
+================================================================================
+
+[B]UltimateBungeeAuth 2.0[/B] is a major update. There are now [B]two separate downloads[/B]: one for [B]Waterfall / BungeeCord[/B] and one for [B]Velocity 3[/B]. Use the jar that matches your proxy.
+
+[B]What's new[/B]
+[LIST]
+[*][B]Velocity 3[/B] — full feature parity for login, register, queue, premium UUID handling, and admin commands.
+[*][B]Password storage[/B] — [B]BCrypt[/B] hashes; legacy plaintext rows are upgraded automatically on the player's [I]first successful login[/I].
+[*][B]SQL safety[/B] — all database access uses prepared statements (no injected SQL from names/passwords).
+[*][B]Multi-server routing[/B] — configure [ICODE]authServers[/ICODE] and [ICODE]lobbyServers[/ICODE] as lists; optional [ICODE]lobbyPickMode[/ICODE]: [ICODE]FIRST_AVAILABLE[/ICODE], [ICODE]RANDOM[/ICODE], or [ICODE]ROUND_ROBIN[/ICODE].
+[*][B]Rate limiting & lockouts[/B] — configurable limits per IP; optional bypass list for trusted IPs.
+[*][B]Permissions[/B] — [ICODE]ultimatebungeeauth.admin[/ICODE] (required for [ICODE]/uba[/ICODE]); [ICODE]ultimatebungeeauth.queue.bypass[/ICODE] (skip queue). Old [ICODE]uba.queue.bypass[/ICODE] is [B]not[/B] used anymore.
+[*][B]Command whitelist[/B] — only allowed commands can be used before login (editable in config).
+[*][B]Plugin messaging[/B] — Bungee channel listener fixed (proper player resolution for backend “auth status” checks).
+[*][B]Webhooks[/B] — optional Discord-style URLs for first registration and successful login (see [ICODE]integrations.webhooks[/ICODE]).
+[/LIST]
+
+[B]Requirements[/B]
+[LIST]
+[*]Java [B]17+[/B]
+[*]MySQL (same idea as before; table is migrated automatically)
+[/LIST]
+
+[B]Updating from 1.x — do this before restart[/B]
+[LIST]
+[*][B]Backup[/B] your MySQL database and your old [ICODE]config.yml[/ICODE].
+[*]Remove the [B]old[/B] plugin jar; install [B]only one[/B] new jar: either [B]UltimateBungeeAuth-Bungee[/B] or [B]UltimateBungeeAuth-Velocity[/B].
+[*]Your [ICODE]config.yml[/ICODE] structure [B]changed[/B]. Easiest path: let the plugin generate a fresh default, then copy your messages, database credentials, and server names across. Full mapping is in the project [B]README[/B] on GitHub.
+[*]Re-assign [B]LuckPerms[/B] (or equivalent): grant [ICODE]ultimatebungeeauth.admin[/ICODE] to staff who use [ICODE]/uba[/ICODE]; use [ICODE]ultimatebungeeauth.queue.bypass[/ICODE] for queue bypass.
+[*]Wrong-password behaviour is now a [B]message + throttle[/B] instead of an instant kick in most cases — adjust [ICODE]security[/ICODE] if needed.
+[/LIST]
+
+[B]Download / source[/B]
+Grab the correct jar from the resource downloads or build from source with Gradle ([ICODE]./gradlew build[/ICODE]).
+
+Thanks for updating — report issues on GitHub with proxy type (Bungee vs Velocity), Java version, and any stack traces.
+
+================================================================================
+MESSAGE BODY — OPTION B: Plain text (paste into WYSIWYG, then select headings and click Bold)
+================================================================================
+
+UltimateBungeeAuth 2.0 — major update
+
+There are now TWO downloads: one for Waterfall/BungeeCord and one for Velocity 3. Install the jar that matches your proxy.
+
+What's new
+• Velocity 3 — login, register, queue, premium flow, admin commands
+• Passwords — BCrypt; old plaintext upgraded on first successful login
+• SQL — prepared statements only
+• Multi-server — authServers / lobbyServers lists + lobbyPickMode (FIRST_AVAILABLE, RANDOM, ROUND_ROBIN)
+• Rate limits & lockouts — per IP; optional IP bypass list
+• Permissions — ultimatebungeeauth.admin (/uba), ultimatebungeeauth.queue.bypass (queue skip). Old uba.queue.bypass is gone.
+• Whitelisted commands before login — editable in config
+• Plugin messaging — fixed player lookup for backend auth checks
+• Webhooks — optional first-register / login Discord URLs
+
+Requirements: Java 17+ and MySQL.
+
+Updating from 1.x
+1) Backup MySQL + old config.yml
+2) Remove old jar; add only Bungee OR Velocity jar (not both on same proxy for two full auth stacks without planning)
+3) config.yml layout changed — use a fresh generated file and migrate values, or follow README mapping on GitHub
+4) Update permissions: ultimatebungeeauth.admin and ultimatebungeeauth.queue.bypass
+5) Wrong password = message + throttle by default — tune security.* if you want stricter behaviour
+
+Build: ./gradlew build (Java 17).

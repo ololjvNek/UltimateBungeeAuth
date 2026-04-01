@@ -1,0 +1,4 @@
+name: UltimateBungee-Auth
+version: ${version}
+main: pl.jms.auth.bungee.UltimateBungeeAuthPlugin
+author: UltimateBungeeAuth

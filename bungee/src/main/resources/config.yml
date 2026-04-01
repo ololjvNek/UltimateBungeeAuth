@@ -1,0 +1,99 @@
+# UltimateBungeeAuth — BungeeCord / Waterfall
+# All user-facing strings support & color codes and &#RRGGBB hex colors.
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "change_me"
+  name: "minecraft"
+  # Table name for player accounts (migrated automatically).
+  table: "authusers"
+
+servers:
+  # All login / limbo backends (names from your proxy config). Queue and auth logic apply on every listed server.
+  authServers:
+    - "auth"
+  # Alternative single value (still supported): authServer: "auth"
+  # Hubs / lobbies after successful login and queue. Only entries that exist on the proxy are used.
+  lobbyServers:
+    - "lobby"
+  # Alternative single value: lobbyServer: "lobby"
+  # FIRST_AVAILABLE = first name in lobbyServers that exists on the proxy; RANDOM = shuffle list; ROUND_ROBIN = rotate for each transfer.
+  lobbyPickMode: FIRST_AVAILABLE
+
+# Extra names for /titles (comma-separated).
+titlesCommandAliases: "joinTitles"
+
+passwordRules:
+  minLength: 4
+  # Counts distinct digit characters in the password.
+  minUniqueDigitCount: 3
+  minSpecialCharacters: 0
+
+queue:
+  # How often the queue task checks players on the auth server (seconds).
+  tickSeconds: 5
+
+security:
+  permissionAdmin: "ultimatebungeeauth.admin"
+  permissionQueueBypass: "ultimatebungeeauth.queue.bypass"
+  maxPasswordAttempts: 5
+  rateLimitWindowSeconds: 60
+  maxAuthenticationsPerWindow: 20
+  lockoutSeconds: 300
+  # Commands allowed before login/register (prefix match, case-insensitive).
+  allowedCommandsBeforeLogin:
+    - "/login"
+    - "/l"
+    - "/register"
+    - "/reg"
+    - "/unregister"
+  throttleBypassIps: []
+  pluginRequestChannel: "BungeeCord"
+  pluginResponseChannel: "Return"
+
+integrations:
+  webhooks:
+    firstJoin:
+      url: ""
+      format: "First join: {PLAYER} at {TIME}"
+    loginSuccess:
+      url: ""
+      format: "{PLAYER} logged in at {TIME}"
+
+titles:
+  settings:
+    fadeInSeconds: 1
+    staySeconds: 3
+    fadeOutSeconds: 1
+  loginPrefix: "&2&lLOGIN"
+  premiumLogin: "&7Premium account"
+  nonPremiumLogin: "&7Offline account"
+  lastSession: "&7Last session"
+
+messages:
+  login: "&8>> &7Login: &c/login <password>"
+  loginSuccess: "&8>> &7Logged in."
+  wrongPassword: "&8>> &cWrong password."
+  loggedIn: "&8>> &7Already logged in."
+  notRegistered: "&8>> &7Register first."
+  registerSuccess: "&8>> &7Registered."
+  registerPrompt: "&8>> &7Register: &c/register <password> <password>"
+  passwordsMismatch: "&8>> &7Passwords do not match."
+  alreadyRegistered: "&8>> &7Already registered."
+  playerInServer: "&8>> That name is already online."
+  wrongNickname: "&8>> Correct name: {CORRECT_NICK}"
+  priorityBrought: "&7Priority queue — sent to lobby."
+  inQueue: "&7Queue position: &a{QUEUE}"
+  titlesOn: "&7Join titles: &aON"
+  titlesOff: "&7Join titles: &cOFF"
+  passwordLength: "&7Password too short or too weak (length)."
+  passwordNumbers: "&7Password needs more distinct digits."
+  passwordSpecial: "&7Password needs more special characters."
+  tooManyAttempts: "&7Too many failed attempts."
+  lockedOut: "&7Try again later (temporary lockout)."
+  rateLimited: "&7Too many attempts. Slow down."
+  unregisterSuccess: "&8>> &7You have been unregistered."
+  unregisterNotRegistered: "&8>> &7You are not registered."
+  unregisterWrongPassword: "&8>> &7Incorrect password."
